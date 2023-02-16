@@ -4,14 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMP1903M_A01_2223
+namespace assessment
 {
     class Pack
     {
         //intializing the empty pack
         // Creating a list of 'card' objects to create a 'pack of cards'
         // this is a collection of 'card'  
-        public  static List<Card> pack  = new List<Card>();        //creating a static field as there is only one pack at a time
+
+        private static List<Card> _pack  = new List<Card>();        //private
+
+        //properties
+        public List<Card> pack
+        {
+            get { return _pack; }       //only get means this is a read only property
+        }
+            
+        
 
         public Pack()
         {
@@ -26,11 +35,11 @@ namespace CMP1903M_A01_2223
                 
                 for (int j = 1; j <= 13; j++)
                 {
-                    pack.Add(new Card());        //creating a empty card object
+                    _pack.Add(new Card());        //creating a empty card object
                     
-                    pack[count].Suit = (Card.suit)i;   // assisgn value to one member   variable
+                    _pack[count].Suit = (Card.suit)i;   // assisgn value to one member   variable
                     
-                    pack[count].Value = j;              // assisgn value to second member variable
+                    _pack[count].Value = j;              // assisgn value to second member variable
                     
                     count++;        // incrimenting the counter for the list         
                 }
@@ -57,17 +66,16 @@ namespace CMP1903M_A01_2223
                 //creating a random object
                 Random rnd = new Random();
 
+                Card exchange = new Card();           // intermidiate variable for containing the value during exchange
+
                 //initating the main for loop
-                for (int i = 0; i <= 51; i++) 
+                for (int i = 0; i <= 51; i++)
                 {
-                                      
-                    int randomNum = rnd.Next(i, 52) ;            //variable to hold the ramdomly generated number
+                    int randomNum = rnd.Next(i, 52);            //variable to hold the ramdomly generated number
 
-                    Card exchange= new Card();           // intermidiate variable for containing the value during exchange
-
-                    pack[randomNum] = exchange;
-                    pack[randomNum] = pack[i];             
-                    pack[i] = exchange;
+                    exchange = _pack[randomNum];
+                    _pack[randomNum] = _pack[i];
+                    _pack[i] = exchange;
 
                 }
                 //returning the value
@@ -78,33 +86,33 @@ namespace CMP1903M_A01_2223
             else if (typeOfShuffle == 2)
             {
                 // creating two new list to contain the halfed pack list
-               
-                List<Card> firstHalf = new List<Card>;
- 
+
+                List<Card> firstHalf = new List<Card>();
+
                 List<Card> secondHalf = new List<Card>();
 
                 for (int i = 0; i <= 25; i++)
                 {
-                    firstHalf.Add(pack[i]);                     // inserting the first half into the list
+                    firstHalf.Add(_pack[i]);                     // inserting the first half into the list
 
-                    secondHalf.Add(pack[26 + i]);                  // inserting the second half
+                    secondHalf.Add(_pack[26 + i]);                  // inserting the second half
                 }
                 //defining the loop for shuffling 
                 for (int i = 0; i <= 25; i++)
                 {
-                    pack[2 * i] = firstHalf[i];      // first element from first half
+                    _pack[2 * i] = firstHalf[i];      // first element from first half
 
-                    pack[2 * i + 1] = secondHalf[i];   //second element from second half
+                    _pack[2 * i + 1] = secondHalf[i];   //second element from second half
                 }
                 return true;
             }
-             else if (typeOfShuffle == 3)
+            else if (typeOfShuffle == 3)
             {
                 return true;
             }
             else
                 // in case there is an error or unexpected input
-                Console.WriteLine("Invalid input. Please enter a valid input to shuffle the cards.")
+                Console.WriteLine("Invalid input. Please enter a valid input to shuffle the cards.");
                 return false;      
         }
         public static Card deal()
@@ -114,7 +122,7 @@ namespace CMP1903M_A01_2223
 
             int randomCard = randomDeal.Next(0, 52);         //getting a card between the legal range
             
-            return pack[randomCard];
+            return _pack[randomCard];
 
         }
          public static List<Card> dealCard(int amount)
@@ -126,7 +134,7 @@ namespace CMP1903M_A01_2223
             //for loop for adding the elemnets to the carddeal list
             for (int i = 0; i < amount; i++)
             {
-                cardDeal.Add(pack[i]);
+                cardDeal.Add(_pack[i]);
             }
             return cardDeal;
         }
