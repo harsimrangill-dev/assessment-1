@@ -11,7 +11,7 @@ namespace assessment
         //Base for the Card class.
 
         // defining a special type for Suit of the Cards with base integer
-        public enum suit
+        public enum Suit
         {
             spade = 1,       // intializing the first at 1 othervise it would be 0
             diamond,
@@ -19,11 +19,17 @@ namespace assessment
             club
         }
 
+        //constructor
+        public Card()
+        {
+            //this a card constructor.
+        }
+
 
         //defining private variables
 
         private int _value;
-        private suit _suit;
+        private Suit _suit;
 
         //properties
         //Value: numbers 1 - 13
@@ -44,7 +50,7 @@ namespace assessment
 
         //Suit: enum suit 1 - 4
 
-        public suit Suit
+        public Suit suit
         {
             get { return _suit; }
             
@@ -55,7 +61,14 @@ namespace assessment
                     Console.WriteLine("sorry can not assisgn a proper suit to the card. plesase provide an acceptable value");
             }
         }
-        
+
+        //overeride method to display card value by default
+
+        public override string ToString()
+        {
+            return Value.ToString() + " of " + suit.ToString();
+        }
+
 
 
 

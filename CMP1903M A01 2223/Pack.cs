@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,7 +24,7 @@ namespace assessment
             get { return _pack; }       //only get means this is a read only property
         }
             
-        
+        //pack constructor
 
         public Pack()
         {
@@ -37,7 +41,7 @@ namespace assessment
                 {
                     _pack.Add(new Card());        //creating a empty card object
                     
-                    _pack[count].Suit = (Card.suit)i;   // assisgn value to one member   variable
+                    _pack[count].suit = (Card.Suit)i;   // assisgn value to one member   variable
                     
                     _pack[count].Value = j;              // assisgn value to second member variable
                     
@@ -117,20 +121,16 @@ namespace assessment
         }
         public static Card deal()
         {
-            //Deals one card
-            Random randomDeal = new Random();           //creating an instance of random class to generate a random card
-
-            int randomCard = randomDeal.Next(0, 52);         //getting a card between the legal range
-            
-            return _pack[randomCard];
+            //Deals one card           
+            return _pack[0];
 
         }
-         public static List<Card> dealCard(int amount)
+        public static List<Card> dealCard(int amount)
         {
             //Deals the number of cards specified by 'amount'
             // creating a list that is going to return wothout modifying the static list pack
             List<Card> cardDeal = new List<Card>();
-            
+
             //for loop for adding the elemnets to the carddeal list
             for (int i = 0; i < amount; i++)
             {
@@ -138,5 +138,28 @@ namespace assessment
             }
             return cardDeal;
         }
+        //adding a display pack method 
+        
+        // calling with one value/ index
+        public void displayPack(int index)
+        {
+            if (index >= 1 && index <= 52)
+                Console.WriteLine("Your card is " + _pack[index - 1]);
+            else
+                Console.WriteLine("Error irregular input. Index does not exist.");
+        }
+
+        //calling with range
+        public void displayPack(int start, int end)
+        {
+            if ((start >= 1 && start <= 51) && (end >= 2 && end <= 52))
+            {
+                for (int i = start - 1; i < end; i++)
+                    Console.WriteLine("Your card is " + _pack[i]);
+            }
+            else
+                Console.WriteLine("Error irregular input.Index does not exist.");
+        }
+        
     }
 }
