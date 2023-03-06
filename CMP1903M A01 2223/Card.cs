@@ -13,16 +13,18 @@ namespace assessment
         // defining a special type for Suit of the Cards with base integer
         public enum Suit
         {
-            spade = 1,       // intializing the first at 1 othervise it would be 0
-            diamond,
-            heart,
-            club
+            Spades = 1,       // intializing the first at 1 othervise it would be 0
+            Diamonds,
+            Hearts,
+            Clubs
         }
 
         //constructor
         public Card()
         {
-            //this a card constructor.
+            _suit = 0;  //intializing fileds
+
+            _value = 0;
         }
 
 

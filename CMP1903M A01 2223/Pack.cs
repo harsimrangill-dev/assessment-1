@@ -108,6 +108,8 @@ namespace assessment
 
                     _pack[2 * i + 1] = secondHalf[i];   //second element from second half
                 }
+                _pack.Reverse();  //reversing order to create perfect shuffle
+
                 return true;
             }
             else if (typeOfShuffle == 3)
@@ -127,8 +129,11 @@ namespace assessment
         }
         public static List<Card> dealCard(int amount)
         {
+
             //Deals the number of cards specified by 'amount'
+
             // creating a list that is going to return wothout modifying the static list pack
+
             List<Card> cardDeal = new List<Card>();
 
             //for loop for adding the elemnets to the carddeal list
@@ -138,8 +143,13 @@ namespace assessment
             }
             return cardDeal;
         }
-        //adding a display pack method 
         
+        
+        
+        
+        
+        //adding a display pack method 
+ 
         // calling with one value/ index
         public void displayPack(int index)
         {
@@ -148,6 +158,9 @@ namespace assessment
             else
                 Console.WriteLine("Error irregular input. Index does not exist.");
         }
+
+
+
 
         //calling with range
         public void displayPack(int start, int end)
@@ -161,5 +174,21 @@ namespace assessment
                 Console.WriteLine("Error irregular input.Index does not exist.");
         }
         
+        //overloaded method
+
+        public void  DisplayPack(int start)
+        {
+            if (start >= 1 && start <= 51)
+            {
+                for( int i = 0; i < start; i++)
+                {
+                    Console.WriteLine("Your card is " + _pack[i]);
+
+                }
+            }
+            else
+                Console.WriteLine("Error irregular input.Index does not exist.");
+        }
+
     }
 }
