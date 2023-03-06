@@ -123,23 +123,35 @@ namespace assessment
         }
         public static Card deal()
         {
-            //Deals one card           
-            return _pack[0];
+            if (_pack.Count == 0)
+            {
+                throw new IndexOutOfRangeException("Error the Pack is empty");
+            }
+
+            //Deals one card
+            
+            Card card = _pack[0];
+            _pack.RemoveAt(0);
+            return card;
 
         }
         public static List<Card> dealCard(int amount)
         {
 
+            if (_pack.Count < amount)
+                throw new IndexOutOfRangeException("Error the Pack is empty");
+
             //Deals the number of cards specified by 'amount'
 
             // creating a list that is going to return wothout modifying the static list pack
 
-            List<Card> cardDeal = new List<Card>();
+            List<Card> cardDeal = new List<Card>(amount);
 
             //for loop for adding the elemnets to the carddeal list
             for (int i = 0; i < amount; i++)
             {
-                cardDeal.Add(_pack[i]);
+                cardDeal.Add(_pack[0]);
+                _pack.RemoveAt(0);
             }
             return cardDeal;
         }
@@ -151,10 +163,10 @@ namespace assessment
         //adding a display pack method 
  
         // calling with one value/ index
-        public void displayPack(int index)
+        public void displayPack(int index, List<Card> p)
         {
-            if (index >= 1 && index <= 52)
-                Console.WriteLine("Your card is " + _pack[index - 1]);
+            if (index >= 1 && index <= p.Count)
+                Console.WriteLine("Your card is " + p[index - 1]);
             else
                 Console.WriteLine("Error irregular input. Index does not exist.");
         }
@@ -162,13 +174,14 @@ namespace assessment
 
 
 
-        //calling with range
-        public void displayPack(int start, int end)
+        //calling with range  
+        //overloaded
+        public void displayPack(int start, int end, List<Card> p)
         {
-            if ((start >= 1 && start <= 51) && (end >= 2 && end <= 52))
+            if ((start >= 1 && start <= p.Count) && (end >= 2 && end <= p.Count))
             {
                 for (int i = start - 1; i < end; i++)
-                    Console.WriteLine("Your card is " + _pack[i]);
+                    Console.WriteLine("Your card is " + p[i]);
             }
             else
                 Console.WriteLine("Error irregular input.Index does not exist.");
@@ -176,13 +189,13 @@ namespace assessment
         
         //overloaded method
 
-        public void  DisplayPack(int start)
+        public void DisplayPack(int start, List<Card> p)
         {
-            if (start >= 1 && start <= 51)
+            if (start >= 1 && start <= p.Count)
             {
                 for( int i = 0; i < start; i++)
                 {
-                    Console.WriteLine("Your card is " + _pack[i]);
+                    Console.WriteLine("Your card is " + p[i]);
 
                 }
             }

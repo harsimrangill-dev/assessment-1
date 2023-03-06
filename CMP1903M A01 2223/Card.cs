@@ -67,8 +67,26 @@ namespace assessment
         //overeride method to display card value by default
 
         public override string ToString()
-        {
-            return Value.ToString() + " of " + suit.ToString();
+        {      
+                switch (_value)
+                {
+                    case 11:
+                        return "Jack of " + suit.ToString();
+
+                    case 12:
+                        return "Queen of " + suit.ToString();
+
+                    case 13:
+                        return "King of " + suit.ToString();
+
+                    case 1:
+                        return "Ace of " + suit.ToString();
+
+                    default:
+                        return Value.ToString() + " of " + suit.ToString();
+
+                }
+
         }
 
 
