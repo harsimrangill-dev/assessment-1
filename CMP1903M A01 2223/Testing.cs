@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using CMP1903M_A01_2223;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace assessment
 
             //displaying the pack of cards to show that it is not tempered and is legit 
 
-            deck.displayPack(1,52,deck.pack);
+            Display.displayPack(1,52,deck.pack);
 
             //calling the shuffle methods 
 
@@ -32,7 +33,9 @@ namespace assessment
                     Console.WriteLine("what type of shuffle you want ?\n\t\t 1 -- Fisher Yates " +
                         "\n\t\t 2 -- Riffle Shuffle \n\t\t 3 -- No shuffle.");
 
-                    int type = Convert.ToInt32(Console.ReadLine());
+                    string tp = Console.ReadLine();
+
+                    int type = Convert.ToInt32(tp);
 
                     if (type < 1 || type > 3)
                         throw new ArgumentOutOfRangeException("Input out of range");
@@ -41,22 +44,48 @@ namespace assessment
                     {
                         shuffle = Pack.shuffleCardPack(1);
                         run++;
-                        break;
+                        
                     }
 
                     else if (type == 2)
                     {
                         shuffle = Pack.shuffleCardPack(2);
                         run++;
-                        break;
+                        
                     }
                     else
                     {
                         shuffle = Pack.shuffleCardPack(3);
                         run++;
+                        
+                    }
+
+                    Console.WriteLine("\n Do you wish to shuffle one more time... \n\t\t Y/N..");
+
+                    char ans = (char)Console.Read();
+
+                    if (ans == 'Y' || ans == 'y')
+                    {
+                        tp = Console.ReadLine();
+
+                        continue;
+                    }
+                    else if (ans == 'n' || ans == 'N')
+                    {
                         break;
                     }
-                    
+                    else
+                        throw new InputException("Please Enter a valid y/n");
+
+
+
+
+                }
+                catch (InputException e)
+                {
+                    Console.WriteLine(e.Message);
+                    continue;
+
                 }
                 catch (FormatException ex)
                 {
@@ -71,7 +100,7 @@ namespace assessment
                     continue;
                 }
             }
-
+            int count = 1;
 
             while (true)
             {
@@ -83,7 +112,11 @@ namespace assessment
                     {
                         Console.WriteLine("How many cards do you want?..");
 
-                        int amount = Convert.ToInt32(Console.ReadLine());
+                        string amt = Console.ReadLine();
+                        if (count != 0)
+                            amt = Console.ReadLine();
+
+                        int amount = Convert.ToInt32(amt);
 
                         if (amount < 1 || amount > 52)
                             throw new IndexOutOfRangeException("Index out of range");
@@ -95,9 +128,8 @@ namespace assessment
                             shuffledCard = Pack.deal();
 
                             Console.WriteLine(shuffledCard.ToString());
-                            break;
+                            count++;
                         }
-
                         else
                         {
 
@@ -108,9 +140,39 @@ namespace assessment
 
                             shuffledDeck = Pack.dealCard(amount);
 
-                            deck.DisplayPack(amount, shuffledDeck);
-                            break;
+                            Display.DisplayPack(amount, shuffledDeck);
+                            count++;
+
                         }
+
+                        Console.WriteLine("\n Do you wish to get more Cards... \n\t\t Y/N..");
+
+                        char s = (char)Console.Read();
+                        
+                        if (s == 'Y' || s == 'y')
+                        {
+                            
+
+                            continue;
+                        }
+                        else if (s == 'n' || s == 'N')
+                        {
+                            break;
+                        } 
+                        else
+                            throw new InputException("Please Enter a valid y/n");
+
+                    }
+                    catch (InputException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        continue;
+                    }
+
+                    catch (EmptyPackException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        break;
                     }
                     catch (FormatException e)
                     {
@@ -120,8 +182,8 @@ namespace assessment
 
                     catch (IndexOutOfRangeException e)
                     {
+                        count = 0;
                         Console.WriteLine(e.Message);
-                        Console.WriteLine("Error you cannot give this input.");
                         continue;
                     }
 

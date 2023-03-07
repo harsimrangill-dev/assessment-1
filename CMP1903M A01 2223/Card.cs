@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace assessment
 {
-    class Card
+    internal class Card
     {
         //Base for the Card class.
 

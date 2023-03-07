@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMP1903M_A01_2223;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace assessment
 {
-    class Pack
+    internal class Pack
     {
         //intializing the empty pack
         // Creating a list of 'card' objects to create a 'pack of cards'
@@ -132,14 +133,20 @@ namespace assessment
             
             Card card = _pack[0];
             _pack.RemoveAt(0);
+
+            Console.WriteLine("\n\n Cards left in the pack : {0} \n\n", _pack.Count);
+
             return card;
 
         }
         public static List<Card> dealCard(int amount)
         {
 
-            if (_pack.Count < amount)
-                throw new IndexOutOfRangeException("Error the Pack is empty");
+            if (_pack.Count == 0)
+                throw new EmptyPackException("Your pack is Empty. Get a new pack.");
+
+            else if (_pack.Count < amount)
+                throw new IndexOutOfRangeException();
 
             //Deals the number of cards specified by 'amount'
 
@@ -153,55 +160,12 @@ namespace assessment
                 cardDeal.Add(_pack[0]);
                 _pack.RemoveAt(0);
             }
+
+            Console.WriteLine("\n\n Cards left in the pack : {0} \n\n ", _pack.Count);
+
             return cardDeal;
         }
         
-        
-        
-        
-        
-        //adding a display pack method 
- 
-        // calling with one value/ index
-        public void displayPack(int index, List<Card> p)
-        {
-            if (index >= 1 && index <= p.Count)
-                Console.WriteLine("Your card is " + p[index - 1]);
-            else
-                Console.WriteLine("Error irregular input. Index does not exist.");
-        }
-
-
-
-
-        //calling with range  
-        //overloaded
-        public void displayPack(int start, int end, List<Card> p)
-        {
-            if ((start >= 1 && start <= p.Count) && (end >= 2 && end <= p.Count))
-            {
-                for (int i = start - 1; i < end; i++)
-                    Console.WriteLine("Your card is " + p[i]);
-            }
-            else
-                Console.WriteLine("Error irregular input.Index does not exist.");
-        }
-        
-        //overloaded method
-
-        public void DisplayPack(int start, List<Card> p)
-        {
-            if (start >= 1 && start <= p.Count)
-            {
-                for( int i = 0; i < start; i++)
-                {
-                    Console.WriteLine("Your card is " + p[i]);
-
-                }
-            }
-            else
-                Console.WriteLine("Error irregular input.Index does not exist.");
-        }
 
     }
 }
