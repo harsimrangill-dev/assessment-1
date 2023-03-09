@@ -9,9 +9,22 @@ using System.Threading.Tasks;
 
 namespace CMP1903M_A01_2223
 {
+
+    //this is the displaying class 
+    //it provides different methods to display your card 
+    //without creating its objects
+    //static.
+
     internal class Display
     {
 
+
+        //constuctor 
+         
+        public Display()
+        {
+
+        }
 
         //method 1 for displaying the full pack
 
